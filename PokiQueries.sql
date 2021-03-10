@@ -23,25 +23,25 @@
 -- SELECT TOP 1 Poem.Title, Poem.CharCount FROM Poem ORDER BY Poem.CharCount;
 
 -- 9) How many authors are in the third grade?
--- SELECT COUNT(Author.GradeId) as ThirdGradePoems FROM Author WHERE Author.GradeId = 3;
+-- SELECT COUNT(Author.Id) as ThirdGradePoems FROM Author WHERE Author.GradeId = 3;
 
 -- 10) How many authors are in the first, second or third grades?
-SELECT COUNT(Authors.Name) FROM Author WHERE Author.GradeId = 1 OR Author.GradeId = 2 OR Author.GradeId = 3;
+-- SELECT COUNT(Author.Id) as PoemsFromFirstThruThirdGrade FROM Author WHERE Author.GradeId = 1 OR Author.GradeId = 2 OR Author.GradeId = 3;
 
 -- 11) What is the total number of poems written by fourth graders?
-
+-- SELECT COUNT(Poem.Id) AS FourthGradePoems FROM Poem JOIN Author ON Poem.AuthorId = Author.Id WHERE GradeId = 4;
 
 -- 12) How many poems are there per grade?
-
+-- SELECT COUNT(Poem.Id) as PoemsByGrade FROM Poem JOIN Author ON Poem.AuthorId = Author.Id GROUP BY GradeId;
 
 -- 13) How many authors are in each grade? (Order your results by grade starting with 1st Grade)
-
+-- SELECT Grade.Name as Grade ,COUNT(Author.Id) as NumOfAuthors FROM Author JOIN Grade ON Author.GradeId = Grade.Id GROUP BY Grade.Name
 
 -- 14) What is the title of the poem that has the most words?
-
+-- SELECT TOP 1 Poem.Title, Poem.WordCount FROM Poem ORDER BY Poem.WordCount DESC
 
 -- 15) Which author(s) have the most poems? (Remember authors can have the same name.)
-
+SELECT Author.Id AS AuthorID, Author.Name as AuthorName, COUNT(Poem.Id) as NumOfPoems FROM Author JOIN Poem ON Author.Id = Poem.AuthorId GROUP BY Poem.AuthorId, Author.Name, Author.Id ORDER BY NumOfPoems DESC
 
 -- 16) How many poems have an emotion of sadness?
 
