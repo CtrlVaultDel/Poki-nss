@@ -41,13 +41,13 @@
 -- SELECT TOP 1 Poem.Title, Poem.WordCount FROM Poem ORDER BY Poem.WordCount DESC
 
 -- 15) Which author(s) have the most poems? (Remember authors can have the same name.)
-SELECT Author.Id AS AuthorID, Author.Name as AuthorName, COUNT(Poem.Id) as NumOfPoems FROM Author JOIN Poem ON Author.Id = Poem.AuthorId GROUP BY Poem.AuthorId, Author.Name, Author.Id ORDER BY NumOfPoems DESC
+-- SELECT Author.Id AS AuthorID, Author.Name as AuthorName, COUNT(Poem.Id) as NumOfPoems FROM Author JOIN Poem ON Author.Id = Poem.AuthorId GROUP BY Poem.AuthorId, Author.Name, Author.Id ORDER BY NumOfPoems DESC
 
 -- 16) How many poems have an emotion of sadness?
-
+-- SELECT COUNT(Poem.id) AS SadPoems FROM Poem JOIN PoemEmotion ON Poem.id = PoemEmotion.PoemId JOIN Emotion ON PoemEmotion.EmotionId = Emotion.Id WHERE Emotion.Name = 'Sadness';
 
 -- 17) How many poems are not associated with any emotion?
-
+SELECT Emotion.Name ,COUNT(Poem.id) AS NumOfPoems FROM Poem LEFT JOIN PoemEmotion ON Poem.id = PoemEmotion.PoemId LEFT JOIN Emotion ON PoemEmotion.EmotionId = Emotion.Id GROUP BY Emotion.Name HAVING Emotion.Name = 'NA' OR Emotion.Name IS NULL OR Emotion.Name = '';
 
 -- 18) Which emotion is associated with the least number of poems?
 
