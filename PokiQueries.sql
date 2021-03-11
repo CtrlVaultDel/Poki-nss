@@ -50,9 +50,23 @@
 -- SELECT Emotion.Name ,COUNT(Poem.id) AS NumOfPoems FROM Poem LEFT JOIN PoemEmotion ON Poem.id = PoemEmotion.PoemId LEFT JOIN Emotion ON PoemEmotion.EmotionId = Emotion.Id GROUP BY Emotion.Name HAVING Emotion.Name = 'NA' OR Emotion.Name IS NULL OR Emotion.Name = '';
 
 -- 18) Which emotion is associated with the least number of poems?
--- SELECT TOP 1 Emotion.Name ,COUNT(Poem.id) AS NumOfPoems FROM Poem LEFT JOIN PoemEmotion ON Poem.id = PoemEmotion.PoemId LEFT JOIN Emotion ON PoemEmotion.EmotionId = Emotion.Id GROUP BY Emotion.Name HAVING Emotion.Name IS NOT NULL ORDER BY NumOfPoems;
+SELECT TOP 1 Emotion.Name ,COUNT(Poem.id) AS NumOfPoems FROM Poem LEFT JOIN PoemEmotion ON Poem.id = PoemEmotion.PoemId LEFT JOIN Emotion ON PoemEmotion.EmotionId = Emotion.Id GROUP BY Emotion.Name HAVING Emotion.Name IS NOT NULL ORDER BY NumOfPoems;
 
 -- 19) Which grade has the largest number of poems with an emotion of joy?
-
+SELECT Grade.Name AS Grade, COUNT(Poem.Id) AS NumOfPoems FROM Poem 
+	JOIN Author ON Poem.AuthorId = Author.Id
+	JOIN Grade ON Author.GradeId = Grade.Id
+	JOIN PoemEmotion ON Poem.Id = PoemEmotion.PoemId
+	JOIN Emotion ON PoemEmotion.EmotionId = Emotion.Id
+	GROUP BY Grade.Name, Emotion.Name
+	HAVING Emotion.Name = 'Joy';
 
 -- 20) Which gender has the least number of poems with an emotion of fear?
+SELECT Gender.Name AS Gender, COUNT(Poem.Id) AS FearPoems FROM Poem 
+	JOIN Author ON Poem.AuthorId = Author.Id
+	JOIN Gender ON Author.GenderId = Gender.Id
+	JOIN PoemEmotion ON Poem.Id = PoemEmotion.PoemId
+	JOIN Emotion ON PoemEmotion.EmotionId = Emotion.Id
+	GROUP BY Gender.Name, Emotion.Name
+	HAVING Emotion.Name = 'Fear'
+	ORDER BY Emotion.Name; 
